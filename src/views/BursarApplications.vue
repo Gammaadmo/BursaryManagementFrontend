@@ -20,7 +20,7 @@
               <td>{{ app.id }}</td>
               <td>{{ app.name }}</td>
               <td>{{ app.email }}</td>
-              <td>{{ app.status }}</td>
+              <td :class="getStatusClass(app.status)">{{ app.status }}</td>
               <td><button @click="viewApplication(app.id)" class="view-btn">View</button></td>
             </tr>
           </tbody>
@@ -46,6 +46,11 @@
         // Logic to view a specific application
         console.log('Viewing application:', id);
       },
+      getStatusClass(status) {
+        if (status === 'Approved') return 'approved';
+        if (status === 'Rejected') return 'rejected';
+        return 'pending';
+      }
     },
   };
   </script>
@@ -60,11 +65,13 @@
   .applications-title {
     color: #007bff; /* Blue color */
     font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
   }
   
   .applications-table {
     width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
     border-collapse: collapse;
   }
   
@@ -76,6 +83,11 @@
   
   .applications-table th {
     background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .applications-table td {
+    font-size: 16px;
   }
   
   .view-btn {
@@ -84,6 +96,9 @@
     border: none;
     padding: 6px 12px;
     cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
   }
   
   .view-btn:hover {
@@ -94,6 +109,23 @@
     color: #333;
     font-size: 18px;
     margin-top: 20px;
+    font-style: italic;
+  }
+  
+  /* Conditional styling for application status */
+  .approved {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .rejected {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .pending {
+    color: orange;
+    font-weight: bold;
   }
   </style>
   
